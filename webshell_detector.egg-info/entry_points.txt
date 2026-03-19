@@ -1,0 +1,2 @@
+[console_scripts]
+webshdet = webshell_detector.cli.cli:main
