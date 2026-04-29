@@ -1,6 +1,0 @@
-Metadata-Version: 2.4
-Name: webshell_detector
-Version: 1.0
-Requires-Dist: pyfiglet
-Requires-Dist: colorama
-Dynamic: requires-dist

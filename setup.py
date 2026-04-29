@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='webshell_detector',
+    name='webshell_analyzer',
     version='1.0',
     packages=find_packages(),
     install_requires=[
@@ -10,7 +10,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'webshdet=webshell_detector.cli.cli:main',
+            'wsanalyzer=webshell_analyzer.cli.cli:main',
         ]
     }
 )
