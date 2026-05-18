@@ -11,15 +11,10 @@ use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Expr;
 use PhpParser\Node\Stmt;
-use PhpParser\Node\Scalar;
-
 
 class NodeVisitor extends NodeVisitorAbstract {
     private featureWrapper $features;
     private array $superglobal = ['_GET', '_POST', '_COOKIE', '_REQUEST', '_FILES', '_ENV', '_SERVER', '_SESSION', 'GLOBALS'];
-    private array $decodeFunctions = ['base64_decode', 'gzinflate', 'gzuncompress', 'str_rot13'];
-
-    private array $varsFromDecode = [];
 
      public function __construct(featureWrapper $features){
         $this->features = $features;
@@ -30,48 +25,33 @@ class NodeVisitor extends NodeVisitorAbstract {
         $this->handleStructuralFeatures($node);
     }
     
-
     private function getFuncName(Node $node): ?string {
         if($node instanceof Expr\FuncCall && $node->name instanceof Name){
-            if($node->name instanceof Name){
-                return strtolower($node->name->toString());
-            }
+            return strtolower($node->name->toString());
         }
         return null;
     }
-
 
     private function isSuperglobal(Node $node): bool {
         return $node instanceof Expr\ArrayDimFetch && $node->var instanceof Expr\Variable && is_string($node->var->name) && in_array($node->var->name, $this->superglobal);
     }
 
-    private function isDecodeFunction(Node $node): bool {
-        if($node instanceof Expr\FuncCall && $node->name instanceof Name){
-            $fname = $this->getFuncName($node);
-            return in_array($fname, $this->decodeFunctions);
-        }
-        return false;
-    }
-    
-
     private function handleDynamicFeatures(Node $node){
+        #dynamic function call exists (dynamicFuncCallExists feature)
+        if($node instanceof Expr\FuncCall && $node->name instanceof Expr\Variable){
+            $this->features->dynamicFeatures->dynamicFuncCallExists = true;
+        }
         #check for variable variables (varExists feature)
         if($node instanceof Expr\Variable && $node->name instanceof Expr\Variable){
             $this->features->dynamicFeatures->varExists = true;
         }
-
+        #count variable usage (varUsageCount feature)
         if($node instanceof Expr\Variable){
             $this->features->dynamicFeatures->varUsageCount++;
         }
-
+        #count assignments (assignmentCount feature)
         if($node instanceof Expr\Assign){
             $this->features->dynamicFeatures->assignmentCount++;
-
-            if($node->expr instanceof Expr\FuncCall && $this->isDecodeFunction($node->expr)){
-                if($node->var  instanceof Expr\Variable && is_string($node->var->name)){
-                    $this->varsFromDecode[$node->var->name] = true;
-                }
-            }
         }
     }
 
@@ -96,7 +76,7 @@ class NodeVisitor extends NodeVisitorAbstract {
             }
         }
 
-
+        #count suspicious concatenation (suspiciousConcat feature)
         if($node instanceof Expr\BinaryOp\Concat){
             $this->features->structuralFeatures->suspiciousConcat = ($this->features->structuralFeatures->suspiciousConcat ?? 0) + 1;
         }

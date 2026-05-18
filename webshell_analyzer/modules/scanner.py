@@ -2,7 +2,7 @@ import os
 import sys 
 from colorama import Style, Fore
 import json
-from webshell_analyzer.modules.detector import processing_file
+from webshell_analyzer.modules.detector import processing_file, show_save_message
 
 def scan_directory(directorypath, output_file=None):
     
@@ -46,11 +46,6 @@ def scan_directory(directorypath, output_file=None):
         "summary": summary
     }
 
-    if output_file:
-        with open(output_file, "w") as f:
-            json.dump(final_output, f, indent=4)
-        print(Fore.GREEN + f"Result Saved to {output_file}")
-
     print(Fore.GREEN + "\n" + "=" * 50)
     print(Fore.GREEN + "SCAN SUMMARY".center(50))
     print(Fore.GREEN + "=" * 50)
@@ -60,6 +55,10 @@ def scan_directory(directorypath, output_file=None):
     print(Fore.GREEN + f"normal files: {total_filenormal}")
     print(Fore.GREEN + f"webshell files: {total_filewebshells}")
     print(Fore.GREEN + "=" * 50 + "\n")
+    if output_file:
+        with open(output_file, "w") as f:
+            json.dump(final_output, f, indent=4)
+        show_save_message(output_file)
 
     sys.stdout.write(Style.RESET_ALL)
     sys.stdout.flush()

@@ -10,17 +10,15 @@ feature_columns = load_feature_columns()
 base_dir = os.path.dirname(os.path.dirname(__file__))
 
 def extract_ast(filepath):
-    # Gunakan os.path.abspath untuk memastikan path absolut benar
+    #call the AST extractor script
     php_ast_path = os.path.abspath(os.path.join(base_dir, "extractor", "ast_extraction", "src", "astExtractor.php"))
     target_file = os.path.abspath(filepath)
 
     try:
-        # Gunakan list argumen, subprocess akan menangani spasi secara otomatis
-        # Namun pastikan executable 'php' terdaftar di PATH Windows Anda
         result = subprocess.run(["php", php_ast_path, target_file], capture_output=True, text=True)
 
+        #Handle errors if the PHP script execution fails
         if result.returncode != 0:
-            # Jika stderr kosong, kita cek stdout (siapa tahu PHP error tapi keluar di stdout)
             print(f"\n[DEBUG] PHP Exit Code: {result.returncode}")
             print(f"[DEBUG] PHP STDERR: {result.stderr}")
             print(f"[DEBUG] PHP STDOUT: {result.stdout}")
@@ -31,7 +29,7 @@ def extract_ast(filepath):
         print(f"[DEBUG] Python Exception: {e}")
         return None
 
-
+#
 def align_features(features_dict):
     return [features_dict.get(col, 0) for col in feature_columns]
 
@@ -39,46 +37,36 @@ def align_features(features_dict):
 def extract_features(filepath):
     features = {}
 
-    # =====================
-    # AST (OPTIONAL)
-    # =====================
+    #Extract AST features
     ast_features = extract_ast(filepath)
     if ast_features is None:
         print("[WARN] AST extraction failed")
     else:
         features.update(ast_features)
 
-    # =====================
-    # READ FILE
-    # =====================
+   
     try:
+        #read file content for lexical and statistical extraction
         with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
             code = f.read().strip()
     except Exception as e:
         print("[ERROR] Failed to read file:", e)
         return None
 
-    # =====================
-    # LEXICAL (WAJIB)
-    # =====================
     try:
+        #extract lexical features
         lexical_features = extract_lexical_features(code)
         features.update(lexical_features)
     except Exception as e:
         print("[ERROR][LEXICAL]", e)
 
-    # =====================
-    # STATISTICAL (WAJIB)
-    # =====================
     try:
+        #extract statistical features
         statistical_features = extract_statistical_features(code)
         features.update(statistical_features)
     except Exception as e:
         print("[ERROR][STATISTICAL]", e)
 
-    # =====================
-    # FINAL CHECK
-    # =====================
     if not features:
         print("[ERROR] All feature extraction failed")
         return None
