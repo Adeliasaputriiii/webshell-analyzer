@@ -45,12 +45,11 @@ to install webshell analyzer, clone this repository to your local machine using 
 After the installation process is complete, the system is ready to use.
 
 # Usage
-To get started with Webshell Analyzer:
+Use the following command to launch the webshell analyzer interactive environment :
 
-Start ```wsanalyzer```:  this is the main command to enter the Webshell Analyzer interactive environment.
-You will be greeted with the Webshell Analyzer prompt:
+```wsanalyzer```
 
-From here, you can run all available commands such as `scan`, `detect`, `--output`, `help`, `exit`.
+once started, you will be presented with the webshell analyzer command prompt. From this environment, you can run all available commands such as `scan`, `detect`, `--output`, `help`, `exit`.
 
 # Command
 1. ```scan <directory_path> [--output <output_file.json>]``` -> scan all PHP files in a directory for webshell detection
