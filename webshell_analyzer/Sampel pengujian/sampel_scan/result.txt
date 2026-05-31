@@ -96,9 +96,9 @@
             "file_size": 3177,
             "status": "processed",
             "prediction": "webshell",
-            "confidence": "95.67%",
+            "confidence": "94.18%",
             "features": {
-                "dynamicFuncCallExists": true,
+                "dynamicFuncCallExists": false,
                 "varExists": false,
                 "varUsageCount": 93,
                 "assignmentCount": 27,
