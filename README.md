@@ -1,5 +1,6 @@
-# Webshell-Analyzer
+# ***Webshell-Analyzer***
 ![Webshell Analyzer Home Screen](/assets/images/home_screen.png "Home Screen")
+
 webshell analyzer is command line based webshell detection tool that utillizes static feature extraction and using Random Forest classification to detect malicious PHP webshell.
 
 # Table of Contens
@@ -46,7 +47,7 @@ After the installation process is complete, the system is ready to use.
 # Usage
 To get started with Webshell Analyzer:
 
-Start ```bash wsanalyzer```:  this is the main command to enter the Webshell Analyzer interactive environment.
+Start ```wsanalyzer```:  this is the main command to enter the Webshell Analyzer interactive environment.
 You will be greeted with the Webshell Analyzer prompt:
 
 From here, you can run all available commands such as `scan`, `detect`, `--output`, `help`, `exit`.
