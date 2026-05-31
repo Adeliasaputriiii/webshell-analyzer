@@ -51,7 +51,7 @@ Use the following command to launch the webshell analyzer interactive environmen
 
 once started, you will be presented with the webshell analyzer command prompt. From this environment, you can run all available commands such as `scan`, `detect`, `--output`, `help`, `exit`.
 
-# Command
+# Commands
 1. ```scan <directory_path> [--output <output_file.json>]``` -> scan all PHP files in a directory for webshell detection
 2. ```detect <file_path> [--output <output_file.json>]``` -> detect a specific file for webshell activity
 3. ```help``` -> for show this help message
