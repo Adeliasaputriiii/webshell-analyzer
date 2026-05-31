@@ -1,5 +1,5 @@
 # Webshell-Analyzer
-![Webshell Analyzer Home Screen](/assets/images/home-screen.png "Home Screen")
+![Webshell Analyzer Home Screen](/assets/images/home_screen.png "Home Screen")
 webshell analyzer is command line based webshell detection tool that utillizes static feature extraction and using Random Forest classification to detect malicious PHP webshell.
 
 # Table of Contens
