@@ -61,3 +61,4 @@ From here, you can run all available commands such as `scan`, `detect`, `--outpu
 # Example Output
 ![Process Detecting Single file PHP](/assets/images/detectFile.png "detecting File")
 
+
