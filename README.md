@@ -4,13 +4,13 @@ webshell analyzer is command line based webshell detection tool that utillizes s
 ![Webshell Analyzer Home Screen](/assets/images/home_screen.png "Home Screen")
 
 # Table of Contens
-- About
-- Features
-- Requirements
-- Instalation
-- Usage
-- Commands
-- Example Output
+- [About](#about)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Instalation](#installation)
+- [Usage](#usage)
+- [Commands](#commands)
+- [Example Output](#example-output)
 
 # About
 webshell analyzer was developed to assist security analysts, researchers, and system administrators in identifying potentially malicious PHP files before they are executed on a web server. the tool helps to mitigate the risk of unauthorised access, web defacement attacks, and persistent backdoor attacks, which are commonly associated with webshells.
