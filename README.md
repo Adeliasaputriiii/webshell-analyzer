@@ -29,18 +29,13 @@ this system combines three static code analysis methods: lexical analysis, stati
 before installing and running webshell analyzer, ensure that your system meets the following requirements :
 
 - Python 3.10 or later
-- Pip (oython package manager)
+- Pip (python package manager)
 - Git
-
-**Python Dependencies**
-The required python packages are listed in the ```requirements.txt``` file and can be installed automatically using :
-
-```pip install -r requirements.txt```
 
 ## Installation
 to install webshell analyzer, clone this repository to your local machine using the following command :
 
-```git clone https://github.com```
+```git clone https://github.com/Adeliasaputriiii/webshell-analyzer```
 
 After the installation process is complete, the system is ready to use.
 
@@ -60,6 +55,3 @@ once started, you will be presented with the webshell analyzer command prompt. F
 
 ## Example Output
 ![Process Detecting Single file PHP](/assets/images/detectFile.png "detecting File")
-
-
-#
