@@ -2,8 +2,6 @@
 
 namespace Features;
 
-
-
 class dynamicFeatures{
     public bool $dynamicFuncCallExists = false;
     public bool $varExists = false;

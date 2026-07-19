@@ -36,7 +36,6 @@ $builder = new astBuilder();
 $result = $builder->builder($code);
 
 
-// Validasi result harus array
 if (!is_array($result)) {
     echo json_encode(["error" => "Builder did not return array"]);
     exit(1);

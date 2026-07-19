@@ -19,7 +19,7 @@ def banner ():
     print(Fore.MAGENTA + "=" * 80)
     print(Fore.MAGENTA + "Author : Adelia Saputri")
     print(Fore.MAGENTA + "Github : https://github.com/adeliasaputri")
-    print(Fore.MAGENTA + "Email  : adeliasaputri@example.com")
+    print(Fore.MAGENTA + "Email  : adelias.dev@gmail.com")
     print(Fore.MAGENTA + "Engine : AST + Lexical + Statistical Features")
     print(Fore.MAGENTA + "=" * 80 + "\n")
 

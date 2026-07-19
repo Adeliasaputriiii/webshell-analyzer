@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "webshell-analyzer"
+version = "1.0.0"
+authors = [
+    {name = "Adelia Saputri", email = "adelias.dev@gmail.com"}
+]
+description = "Webshell Detection Tool integrating Machine Learning based on Static Feature Extraction"
+readme = "README.md"
+license = {file = "LICENSE"}
+requires-python = ">=3.8"
+keywords = ["webshell", "detection", "machine learning", "security", "php"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Security",
+    "Intended Audience :: System Administrators",
+]
+dependencies = [
+    "pandas",
+    "scikit-learn",
+    "colorama",
+    "pyfiglet",
+    "joblib",
+]
+
+[project.scripts]
+wsanalyzer = "webshell_analyzer.cli.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["webshell_analyzer*"]
+
+[tool.setuptools.package-data]
+webshell_analyzer = [
+    # File model
+    "model/*.joblib",
+    "model/*.json",
+
+    # File PHP AST extraction — src
+    "extractor/ast_extraction/src/*.php",
+
+    # File vendor nikic/PHP-Parser
+    "extractor/ast_extraction/vendor/autoload.php",
+    "extractor/ast_extraction/vendor/composer/*.php",
+    "extractor/ast_extraction/vendor/composer/*.json",
+    "extractor/ast_extraction/vendor/nikic/**/*.php",
+
+    # File composer
+    "extractor/ast_extraction/composer.json",
+    "extractor/ast_extraction/composer.lock",
+]

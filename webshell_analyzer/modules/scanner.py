@@ -31,7 +31,7 @@ def scan_directory(directorypath, output_file=None):
                 else :
                     total_filenormal += 1
             else:
-                print(Fore.YELLOW + f"[SKIPPED] {filepath}")
+                print(Fore.YELLOW + f"[SKIPPED] {result['reason']}: {filepath}")
 
     summary = {
         "total files": total_files,

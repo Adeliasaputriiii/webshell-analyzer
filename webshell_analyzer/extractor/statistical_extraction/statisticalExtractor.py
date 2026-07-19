@@ -23,7 +23,7 @@ def compression_ratio(text):
     
     #convert text into bytes before compression
     encoded = text.encode("utf-8", errors="ignore")
-
+    
     if len(encoded) == 0:
         return 0.0
     

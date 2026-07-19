@@ -19,17 +19,19 @@ def extract_ast(filepath):
 
         #Handle errors if the PHP script execution fails
         if result.returncode != 0:
-            print(f"\n[DEBUG] PHP Exit Code: {result.returncode}")
-            print(f"[DEBUG] PHP STDERR: {result.stderr}")
-            print(f"[DEBUG] PHP STDOUT: {result.stdout}")
             return None
         
-        return json.loads(result.stdout)
-    except Exception as e:
-        print(f"[DEBUG] Python Exception: {e}")
+        try:
+            return json.loads(result.stdout)
+        
+        #error handling for invalid JSON output from the PHP script
+        except json.JSONDecodeError:
+            print(f"[WARNING] invalid ast output")
+
+    except Exception:
         return None
 
-#
+
 def align_features(features_dict):
     return [features_dict.get(col, 0) for col in feature_columns]
 
@@ -39,9 +41,7 @@ def extract_features(filepath):
 
     #Extract AST features
     ast_features = extract_ast(filepath)
-    if ast_features is None:
-        print("[WARN] AST extraction failed")
-    else:
+    if ast_features is not None:
         features.update(ast_features)
 
    
@@ -49,26 +49,25 @@ def extract_features(filepath):
         #read file content for lexical and statistical extraction
         with open(filepath, "r", encoding="utf-8", errors="ignore") as f:
             code = f.read().strip()
-    except Exception as e:
-        print("[ERROR] Failed to read file:", e)
+    except Exception:
+        print("[ERROR] Failed to read file")
         return None
 
     try:
         #extract lexical features
         lexical_features = extract_lexical_features(code)
         features.update(lexical_features)
-    except Exception as e:
-        print("[ERROR][LEXICAL]", e)
+    except Exception:
+        print("[WARNING] Lexical feature extraction failed")
 
     try:
         #extract statistical features
         statistical_features = extract_statistical_features(code)
         features.update(statistical_features)
-    except Exception as e:
-        print("[ERROR][STATISTICAL]", e)
+    except Exception:
+        print("[WARNING] statistical feature extraction failed")
 
     if not features:
-        print("[ERROR] All feature extraction failed")
         return None
 
     return features
